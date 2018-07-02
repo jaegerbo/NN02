@@ -25,9 +25,12 @@ Partial Class frmStart
       Me.components = New System.ComponentModel.Container()
       Dim Appearance1 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
       Dim UltraGridBand1 As Infragistics.Win.UltraWinGrid.UltraGridBand = New Infragistics.Win.UltraWinGrid.UltraGridBand("clsBeispielbild", -1)
-      Dim UltraGridColumn1 As Infragistics.Win.UltraWinGrid.UltraGridColumn = New Infragistics.Win.UltraWinGrid.UltraGridColumn("Name")
+      Dim UltraGridColumn11 As Infragistics.Win.UltraWinGrid.UltraGridColumn = New Infragistics.Win.UltraWinGrid.UltraGridColumn("Name")
       Dim Appearance2 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
-      Dim UltraGridColumn2 As Infragistics.Win.UltraWinGrid.UltraGridColumn = New Infragistics.Win.UltraWinGrid.UltraGridColumn("Bild")
+      Dim UltraGridColumn12 As Infragistics.Win.UltraWinGrid.UltraGridColumn = New Infragistics.Win.UltraWinGrid.UltraGridColumn("Bild")
+      Dim UltraGridColumn13 As Infragistics.Win.UltraWinGrid.UltraGridColumn = New Infragistics.Win.UltraWinGrid.UltraGridColumn("Wert")
+      Dim UltraGridColumn14 As Infragistics.Win.UltraWinGrid.UltraGridColumn = New Infragistics.Win.UltraWinGrid.UltraGridColumn("Eingabematrix")
+      Dim UltraGridColumn15 As Infragistics.Win.UltraWinGrid.UltraGridColumn = New Infragistics.Win.UltraWinGrid.UltraGridColumn("Lösungsmatrix")
       Dim Appearance3 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
       Dim Appearance4 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
       Dim Appearance5 As Infragistics.Win.Appearance = New Infragistics.Win.Appearance()
@@ -42,8 +45,8 @@ Partial Class frmStart
       Me.btnBeispielbilderLaden = New Infragistics.Win.Misc.UltraButton()
       Me.gridBeispielbilder = New Infragistics.Win.UltraWinGrid.UltraGrid()
       Me.DirectorySearcher = New System.DirectoryServices.DirectorySearcher()
-      Me.bsBild = New System.Windows.Forms.BindingSource(Me.components)
       Me.btnNetzErstellen = New Infragistics.Win.Misc.UltraButton()
+      Me.bsBild = New System.Windows.Forms.BindingSource(Me.components)
       CType(Me.gridBeispielbilder, System.ComponentModel.ISupportInitialize).BeginInit()
       CType(Me.bsBild, System.ComponentModel.ISupportInitialize).BeginInit()
       Me.SuspendLayout()
@@ -58,16 +61,24 @@ Partial Class frmStart
       '
       'gridBeispielbilder
       '
+      Me.gridBeispielbilder.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
       Me.gridBeispielbilder.DataSource = Me.bsBild
       Appearance1.BackColor = System.Drawing.SystemColors.Window
       Appearance1.BorderColor = System.Drawing.SystemColors.InactiveCaption
       Me.gridBeispielbilder.DisplayLayout.Appearance = Appearance1
       Appearance2.FontData.SizeInPoints = 14.0!
-      UltraGridColumn1.CellAppearance = Appearance2
-      UltraGridColumn1.Header.VisiblePosition = 0
-      UltraGridColumn2.Header.VisiblePosition = 1
-      UltraGridColumn2.Width = 126
-      UltraGridBand1.Columns.AddRange(New Object() {UltraGridColumn1, UltraGridColumn2})
+      UltraGridColumn11.CellAppearance = Appearance2
+      UltraGridColumn11.Header.VisiblePosition = 0
+      UltraGridColumn11.Hidden = True
+      UltraGridColumn12.Header.VisiblePosition = 1
+      UltraGridColumn12.Width = 56
+      UltraGridColumn13.Header.VisiblePosition = 2
+      UltraGridColumn14.Header.VisiblePosition = 3
+      UltraGridColumn14.Hidden = True
+      UltraGridColumn15.Header.VisiblePosition = 4
+      UltraGridColumn15.Hidden = True
+      UltraGridBand1.Columns.AddRange(New Object() {UltraGridColumn11, UltraGridColumn12, UltraGridColumn13, UltraGridColumn14, UltraGridColumn15})
       UltraGridBand1.Expandable = False
       Me.gridBeispielbilder.DisplayLayout.BandsSerializer.Add(UltraGridBand1)
       Me.gridBeispielbilder.DisplayLayout.BorderStyle = Infragistics.Win.UIElementBorderStyle.Solid
@@ -125,7 +136,7 @@ Partial Class frmStart
       Me.gridBeispielbilder.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
       Me.gridBeispielbilder.Location = New System.Drawing.Point(8, 68)
       Me.gridBeispielbilder.Name = "gridBeispielbilder"
-      Me.gridBeispielbilder.Size = New System.Drawing.Size(249, 653)
+      Me.gridBeispielbilder.Size = New System.Drawing.Size(158, 653)
       Me.gridBeispielbilder.TabIndex = 1
       Me.gridBeispielbilder.Text = "UltraGrid1"
       '
@@ -135,10 +146,6 @@ Partial Class frmStart
       Me.DirectorySearcher.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01")
       Me.DirectorySearcher.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01")
       '
-      'bsBild
-      '
-      Me.bsBild.DataSource = GetType(NN02.clsBeispielbild)
-      '
       'btnNetzErstellen
       '
       Me.btnNetzErstellen.Location = New System.Drawing.Point(108, 7)
@@ -146,6 +153,10 @@ Partial Class frmStart
       Me.btnNetzErstellen.Size = New System.Drawing.Size(94, 45)
       Me.btnNetzErstellen.TabIndex = 2
       Me.btnNetzErstellen.Text = "Netz erstellen"
+      '
+      'bsBild
+      '
+      Me.bsBild.DataSource = GetType(NN02.clsBeispielbild)
       '
       'frmStart
       '

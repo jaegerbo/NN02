@@ -13,17 +13,11 @@ Public Class frmStart
 
          _Beispielbilder = New Generic.List(Of clsBeispielbild)
 
-         Using OpenDialog As New FolderBrowserDialog
-            OpenDialog.SelectedPath = "D:\Beispieldaten\numbers-master\0001_CH4M"
-            OpenDialog.ShowDialog()
-            Dim Directory As String = OpenDialog.SelectedPath
-            Dim Di As New IO.DirectoryInfo(Directory)
-
-            ' Schleife über alle Directories
-            For Each D As IO.DirectoryInfo In Di.GetDirectories
-               loadFilesOfDirectory(D)
-            Next
-         End Using
+         ' Bilder asynchron laden
+         Dim Directory As New IO.DirectoryInfo("C:\Users\jaegerbo\source\repos\NN02\Bilder\0001_CH4M")
+         clsRunUiAsync2.Run(gridBeispielbilder, Sub()
+                                                   loadFilesOfDirectory(Directory, _Beispielbilder)
+                                                End Sub, "wird geladen")
 
          gridBeispielbilder.DataSource = _Beispielbilder
          gridBeispielbilder.DisplayLayout.Bands(0).Override.DefaultRowHeight = 30
@@ -33,9 +27,9 @@ Public Class frmStart
          Cursor = Cursors.Default
       End Try
    End Sub
-   Private Sub loadFilesOfDirectory(Directory As IO.DirectoryInfo)
+   Private Sub loadFilesOfDirectory(Directory As IO.DirectoryInfo, Beispielbilder As Generic.List(Of clsBeispielbild))
       Try
-         ' Schleife über alle Dateien
+         ' Schleife über alle Dateien des aktuellen Ordners
          For Each File As IO.FileInfo In Directory.GetFiles
             Dim Bild As New clsBeispielbild
             Bild.Name = File.Name
@@ -45,7 +39,12 @@ Public Class frmStart
                Bild.Lösungsmatrix = ZifferToLösungsarray(Bild.Wert)
             End If
             Bild.Eingabematrix = EingabematrixErstellen(Bild.Bild)
-            _Beispielbilder.Add(Bild)
+            Beispielbilder.Add(Bild)
+         Next
+
+         ' Schleife über alle Unterordner des aktuellen Ordners
+         For Each Di As IO.DirectoryInfo In Directory.GetDirectories
+            loadFilesOfDirectory(Di, Beispielbilder)
          Next
       Catch ex As Exception
          logFehler(ex)

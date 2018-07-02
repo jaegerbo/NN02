@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="clsBeispielbild.vb" />
     <Compile Include="clsNetz.vb" />
+    <Compile Include="clsRunUiAsync2.vb" />
     <Compile Include="clsSchicht.vb" />
     <Compile Include="Fehler.vb" />
     <Compile Include="frmStart.Designer.vb">
